@@ -5,7 +5,7 @@ const navLinks = document.querySelectorAll('.nav-link');
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
-    
+
     // Animate hamburger icon
     const spans = hamburger.querySelectorAll('span');
     if (navMenu.classList.contains('active')) {
@@ -34,7 +34,7 @@ navLinks.forEach(link => {
 window.addEventListener('scroll', () => {
     let current = '';
     const sections = document.querySelectorAll('section');
-    
+
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.clientHeight;
@@ -42,20 +42,20 @@ window.addEventListener('scroll', () => {
             current = section.getAttribute('id');
         }
     });
-    
+
     navLinks.forEach(link => {
         link.classList.remove('active');
         if (link.getAttribute('href').slice(1) === current) {
             link.classList.add('active');
         }
     });
-    
+
     // Navbar background on scroll
     const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 100) {
-        navbar.style.boxShadow = '0 5px 30px rgba(0, 0, 0, 0.15)';
+    if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+        navbar.classList.remove('scrolled');
     }
 });
 
@@ -103,7 +103,7 @@ const contactForm = document.getElementById('contactForm');
 
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    
+
     // Get form values
     const formData = {
         name: document.getElementById('name').value,
@@ -113,13 +113,13 @@ contactForm.addEventListener('submit', (e) => {
         childAge: document.getElementById('childAge').value,
         message: document.getElementById('message').value
     };
-    
+
     // Here you would typically send the data to a server
     console.log('Form submitted:', formData);
-    
+
     // Show success message
     alert('Thank you for your interest! We will contact you soon.');
-    
+
     // Reset form
     contactForm.reset();
 });
@@ -141,7 +141,7 @@ const animateCounter = (element) => {
     const duration = 2000;
     const increment = target / (duration / 16);
     let current = 0;
-    
+
     const updateCounter = () => {
         current += increment;
         if (current < target) {
@@ -151,7 +151,7 @@ const animateCounter = (element) => {
             element.textContent = target + '+';
         }
     };
-    
+
     updateCounter();
 };
 
@@ -171,7 +171,7 @@ statNumbers.forEach(stat => {
 // Add hover effect to images
 const images = document.querySelectorAll('img');
 images.forEach(img => {
-    img.addEventListener('mouseenter', function() {
+    img.addEventListener('mouseenter', function () {
         this.style.transition = 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
     });
 });
@@ -190,7 +190,7 @@ if ('IntersectionObserver' in window) {
             }
         });
     });
-    
+
     const lazyImages = document.querySelectorAll('img[data-src]');
     lazyImages.forEach(img => imageObserver.observe(img));
 }
@@ -198,12 +198,12 @@ if ('IntersectionObserver' in window) {
 // Add floating animation to feature icons on hover
 const featureCards = document.querySelectorAll('.feature-card');
 featureCards.forEach(card => {
-    card.addEventListener('mouseenter', function() {
+    card.addEventListener('mouseenter', function () {
         const icon = this.querySelector('.feature-icon');
         icon.style.transform = 'scale(1.2) rotate(5deg)';
     });
-    
-    card.addEventListener('mouseleave', function() {
+
+    card.addEventListener('mouseleave', function () {
         const icon = this.querySelector('.feature-icon');
         icon.style.transform = 'scale(1) rotate(0deg)';
     });
@@ -215,7 +215,7 @@ window.addEventListener('load', () => {
         'images/hero-bg.jpg',
         'images/about.jpg'
     ];
-    
+
     criticalImages.forEach(src => {
         const img = new Image();
         img.src = src;
@@ -243,3 +243,58 @@ scrollTopBtn.addEventListener('click', () => {
         behavior: 'smooth'
     });
 });
+
+// Rotating Text Animation
+const rotatingTextElement = document.getElementById('heroRotatingText');
+const rotatingTexts = [
+    "<strong>Learning is</strong> a journey of academic acumen and self-discovery",
+    "<strong>Learning is</strong> finding joy in every new discovery",
+    "<strong>Learning is</strong> building confidence for a bright future",
+    "<strong>Learning is</strong> growing together in a caring community",
+    "<strong>Learning is</strong> exploring the world with wonder"
+];
+
+let currentTextIndex = 0;
+
+function updateRotatingText() {
+    if (!rotatingTextElement) return;
+
+    // Fade out
+    rotatingTextElement.style.opacity = '0';
+    rotatingTextElement.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+        // Change text
+        rotatingTextElement.innerHTML = rotatingTexts[currentTextIndex];
+
+        // Fade in
+        rotatingTextElement.style.opacity = '1';
+        rotatingTextElement.style.transform = 'translateY(0)';
+
+        // Update index for next loop
+        currentTextIndex = (currentTextIndex + 1) % rotatingTexts.length;
+    }, 1000); // Wait for transition
+}
+
+if (rotatingTextElement) {
+    // Initial call
+    updateRotatingText();
+    // Interval
+    setInterval(updateRotatingText, 5000);
+}
+
+// Optimization: Pause video when not in view
+const heroVideo = document.querySelector('.hero-video');
+if (heroVideo) {
+    const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                heroVideo.play().catch(e => console.log("Video play failed:", e));
+            } else {
+                heroVideo.pause();
+            }
+        });
+    }, { threshold: 0.5 }); // 50% visibility threshold
+
+    videoObserver.observe(heroVideo);
+}

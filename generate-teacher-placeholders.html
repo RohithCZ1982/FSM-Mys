@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Generate Teacher Placeholders</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        canvas {
+            margin: 10px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Teacher Placeholder Images</h1>
+    <div class="container" id="canvasContainer"></div>
+
+    <script>
+        const teachers = [
+            { name: 'Rajesh Patel', role: 'Language Teacher', color: '#4ECDC4', file: 'teacher-2.jpg' },
+            { name: 'Meera Reddy', role: 'Math Teacher', color: '#FF6B6B', file: 'teacher-3.jpg' },
+            { name: 'Arjun Singh', role: 'Arts Teacher', color: '#FFE66D', file: 'teacher-4.jpg' }
+        ];
+
+        const container = document.getElementById('canvasContainer');
+
+        teachers.forEach(teacher => {
+            const canvas = document.createElement('canvas');
+            canvas.width = 400;
+            canvas.height = 500;
+            const ctx = canvas.getContext('2d');
+
+            // Background gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 500);
+            gradient.addColorStop(0, teacher.color);
+            gradient.addColorStop(1, '#ffffff');
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, 400, 500);
+
+            // Circle for face
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+            ctx.beginPath();
+            ctx.arc(200, 200, 100, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Text
+            ctx.fillStyle = '#333';
+            ctx.font = 'bold 28px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(teacher.name, 200, 350);
+
+            ctx.font = '20px Arial';
+            ctx.fillStyle = '#666';
+            ctx.fillText(teacher.role, 200, 380);
+
+            // Person icon (simple)
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+            ctx.beginPath();
+            ctx.arc(200, 180, 40, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(200, 260, 60, 0, Math.PI, true);
+            ctx.fill();
+
+            container.appendChild(canvas);
+
+            // Download link
+            const link = document.createElement('a');
+            link.download = teacher.file;
+            link.href = canvas.toDataURL('image/jpeg', 0.9);
+            link.textContent = `Download ${teacher.file}`;
+            link.style.display = 'block';
+            link.style.marginTop = '10px';
+            link.style.textAlign = 'center';
+
+            const wrapper = document.createElement('div');
+            wrapper.appendChild(canvas);
+            wrapper.appendChild(link);
+            container.appendChild(wrapper);
+        });
+    </script>
+</body>
+
+</html>

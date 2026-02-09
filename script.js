@@ -223,3 +223,23 @@ window.addEventListener('load', () => {
 });
 
 console.log('First Step Montessori - Website Loaded Successfully! 🎉');
+
+// Scroll to Top Button
+const scrollTopBtn = document.getElementById('scrollTopBtn');
+
+// Show/Height button based on scroll position
+window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+        scrollTopBtn.classList.add('visible');
+    } else {
+        scrollTopBtn.classList.remove('visible');
+    }
+});
+
+// Smooth scroll to top when clicked
+scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});

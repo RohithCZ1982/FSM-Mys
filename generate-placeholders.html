@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Placeholder Images</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #FF6B6B;
+        }
+
+        button {
+            background: #FF6B6B;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+
+        button:hover {
+            background: #E85555;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f0f0f0;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .status.show {
+            display: block;
+        }
+
+        canvas {
+            display: none;
+        }
+
+        .info {
+            background: #FFF9F0;
+            padding: 15px;
+            border-left: 4px solid #FFE66D;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🎨 First Step Montessori - Image Placeholder Generator</h1>
+
+        <div class="info">
+            <strong>Note:</strong> This tool creates colorful placeholder images for the website.
+            Replace these with real photos of your school for the best results!
+        </div>
+
+        <button onclick="generateAllImages()">Generate All Placeholder Images</button>
+
+        <div id="status" class="status"></div>
+    </div>
+
+    <canvas id="canvas"></canvas>
+
+    <script>
+        const images = [
+            { name: 'hero-bg.jpg', width: 1920, height: 1080, gradient: ['#FF6B6B', '#4ECDC4'], text: 'Hero Background' },
+            { name: 'about.jpg', width: 800, height: 600, gradient: ['#4ECDC4', '#FFE66D'], text: 'About Us' },
+            { name: 'practical-life.jpg', width: 800, height: 500, gradient: ['#FFE66D', '#FF6B6B'], text: 'Practical Life' },
+            { name: 'sensorial.jpg', width: 800, height: 500, gradient: ['#FF6B6B', '#764ba2'], text: 'Sensorial Learning' },
+            { name: 'language.jpg', width: 800, height: 500, gradient: ['#667eea', '#4ECDC4'], text: 'Language & Literacy' },
+            { name: 'community-1.jpg', width: 600, height: 400, gradient: ['#FF6B6B', '#FFE66D'], text: 'Community 1' },
+            { name: 'community-2.jpg', width: 600, height: 400, gradient: ['#4ECDC4', '#667eea'], text: 'Community 2' },
+            { name: 'community-3.jpg', width: 600, height: 400, gradient: ['#FFE66D', '#FF6B6B'], text: 'Community 3' },
+            { name: 'community-4.jpg', width: 600, height: 400, gradient: ['#764ba2', '#4ECDC4'], text: 'Community 4' },
+            { name: 'community-5.jpg', width: 600, height: 400, gradient: ['#FF6B6B', '#667eea'], text: 'Community 5' },
+            { name: 'community-6.jpg', width: 600, height: 400, gradient: ['#4ECDC4', '#FFE66D'], text: 'Community 6' },
+            { name: 'program-1.jpg', width: 700, height: 500, gradient: ['#667eea', '#764ba2'], text: 'Nature Explorers' },
+            { name: 'program-2.jpg', width: 700, height: 500, gradient: ['#FF6B6B', '#FFE66D'], text: 'Creative Arts' },
+            { name: 'program-3.jpg', width: 700, height: 500, gradient: ['#4ECDC4', '#667eea'], text: 'Math & Science' },
+            { name: 'program-4.jpg', width: 700, height: 500, gradient: ['#FFE66D', '#FF6B6B'], text: 'Cultural Studies' },
+            { name: 'program-5.jpg', width: 700, height: 500, gradient: ['#764ba2', '#4ECDC4'], text: 'Life Skills' },
+            { name: 'program-6.jpg', width: 700, height: 500, gradient: ['#FF6B6B', '#4ECDC4'], text: 'Social Learning' }
+        ];
+
+        function generateImage(imageConfig) {
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = imageConfig.width;
+            canvas.height = imageConfig.height;
+
+            // Create gradient
+            const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+            gradient.addColorStop(0, imageConfig.gradient[0]);
+            gradient.addColorStop(1, imageConfig.gradient[1]);
+
+            // Fill background
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Add decorative circles
+            ctx.globalAlpha = 0.3;
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(canvas.width * 0.2, canvas.height * 0.3, 150, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.arc(canvas.width * 0.8, canvas.height * 0.7, 200, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Add text
+            ctx.globalAlpha = 1;
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+
+            // Add shadow for better readability
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 10;
+            ctx.shadowOffsetX = 2;
+            ctx.shadowOffsetY = 2;
+
+            ctx.fillText(imageConfig.text, canvas.width / 2, canvas.height / 2);
+
+            // Add subtitle
+            ctx.font = '24px Arial';
+            ctx.fillText('First Step Montessori', canvas.width / 2, canvas.height / 2 + 60);
+
+            return canvas.toDataURL('image/jpeg', 0.9);
+        }
+
+        function downloadImage(dataUrl, filename) {
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = dataUrl;
+            link.click();
+        }
+
+        function generateAllImages() {
+            const status = document.getElementById('status');
+            status.classList.add('show');
+            status.innerHTML = '<strong>Generating images...</strong><br>';
+
+            images.forEach((imageConfig, index) => {
+                setTimeout(() => {
+                    const dataUrl = generateImage(imageConfig);
+                    downloadImage(dataUrl, imageConfig.name);
+                    status.innerHTML += `✓ Generated ${imageConfig.name}<br>`;
+
+                    if (index === images.length - 1) {
+                        status.innerHTML += '<br><strong style="color: #4ECDC4;">✓ All images generated successfully!</strong><br>';
+                        status.innerHTML += '<em>Please move the downloaded images to the "images" folder.</em>';
+                    }
+                }, index * 300);
+            });
+        }
+    </script>
+</body>
+
+</html>

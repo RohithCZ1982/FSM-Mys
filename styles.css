@@ -1446,6 +1446,7 @@ body {
 }
 
 /* ===== Success Message ===== */
+/* ===== Success Message ===== */
 .success-message {
     text-align: center;
     padding: 40px;
@@ -1479,6 +1480,26 @@ body {
 .success-message p {
     color: var(--text-light);
     font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+    .success-message {
+        padding: 30px 20px;
+    }
+
+    .success-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 30px;
+    }
+
+    .success-message h3 {
+        font-size: 1.5rem;
+    }
+
+    .success-message p {
+        font-size: 1rem;
+    }
 }
 
 @keyframes fadeIn {

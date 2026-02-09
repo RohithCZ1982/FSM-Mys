@@ -104,24 +104,45 @@ const contactForm = document.getElementById('contactForm');
 contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    // Get form values
-    const formData = {
-        name: document.getElementById('name').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        childName: document.getElementById('childName').value,
-        childAge: document.getElementById('childAge').value,
-        message: document.getElementById('message').value
-    };
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending...';
+    submitBtn.disabled = true;
 
-    // Here you would typically send the data to a server
-    console.log('Form submitted:', formData);
+    // Get form data
+    const formData = new FormData(contactForm);
 
-    // Show success message
-    alert('Thank you for your interest! We will contact you soon.');
-
-    // Reset form
-    contactForm.reset();
+    // Send to FormSubmit.co via Fetch
+    fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+        .then(response => {
+            console.log('FormSubmit response status:', response.status);
+            if (response.ok) {
+                // Hide form and show success message
+                contactForm.style.display = 'none';
+                const successMessage = document.getElementById('successMessage');
+                if (successMessage) {
+                    successMessage.style.display = 'block';
+                }
+                contactForm.reset();
+            } else {
+                console.error('FormSubmit error:', response);
+                alert('Oops! There was a problem submitting your form. Please try again.');
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Oops! There was a problem submitting your form. Please try again.');
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        });
 });
 
 // Parallax Effect for Hero Section
@@ -286,6 +307,7 @@ if (rotatingTextElement) {
 // Optimization: Pause video when not in view
 const heroVideo = document.querySelector('.hero-video');
 if (heroVideo) {
+    heroVideo.playbackRate = 0.8; // Slow down video for better visual appeal
     const videoObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {

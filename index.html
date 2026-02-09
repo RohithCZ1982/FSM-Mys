@@ -557,7 +557,7 @@
                         <div class="info-icon">✉️</div>
                         <div class="info-text">
                             <h4>Email Us</h4>
-                            <p>info@firststepmontessori.com</p>
+                            <p>fsmontessori.edu@gmail.com</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -569,7 +569,9 @@
                     </div>
                 </div>
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://formsubmit.co/fsmontessori.edu@gmail.com" method="POST">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
                         <div class="form-group">
                             <input type="text" id="name" name="name" placeholder="Parent's Name" required>
                         </div>
@@ -590,6 +592,12 @@
                         </div>
                         <button type="submit" class="btn btn-primary btn-full">Send Message</button>
                     </form>
+
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <div class="success-icon">✓</div>
+                        <h3>Thank You!</h3>
+                        <p>We have received your enrollment form and will contact you soon.</p>
+                    </div>
                 </div>
             </div>
         </div>

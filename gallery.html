@@ -65,7 +65,13 @@
         <!-- Thumbnail Reel -->
         <div class="gallery-reel-container">
             <!-- Filter Controls (Optional, keeping simple for now or integrated) -->
-            <div class="gallery-filters" style="margin-bottom: 20px; z-index: 20; position: relative;">
+            <!-- Mobile Filter Toggle -->
+            <button id="mobile-filter-toggle" class="mobile-filter-toggle">
+                Filters <i class="fas fa-filter"></i>
+            </button>
+
+            <!-- Filter Controls -->
+            <div class="gallery-filters" id="gallery-filters">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="classroom" data-category-prefix="classroom">Classroom</button>
                 <button class="filter-btn" data-filter="outdoor" data-category-prefix="outdoor">Outdoor</button>

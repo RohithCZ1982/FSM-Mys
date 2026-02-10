@@ -1528,7 +1528,139 @@ body {
     padding: 0 20px;
     margin-top: 120px;
     /* Space for navbar */
+    overflow: hidden;
+    /* Prevent spillover */
 }
+
+/* Mobile Filter Toggle */
+.mobile-filter-toggle {
+    display: none;
+    /* Hidden by default on desktop */
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 8px 16px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin: 0 auto 15px;
+    /* Center and give space */
+    transition: all 0.3s ease;
+}
+
+.mobile-filter-toggle:hover,
+.mobile-filter-toggle.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    z-index: 20;
+    position: relative;
+    transition: max-height 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+/* Mobile Styles for One-Screen Gallery */
+@media (max-width: 768px) {
+    .immersive-gallery-wrapper {
+        height: 100vh;
+        overflow: hidden;
+        /* Prevent scrolling strictly */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        /* Space out content */
+    }
+
+    .immersive-content {
+        margin-top: 80px;
+        /* Reduced top margin */
+        padding: 0 10px;
+        flex-grow: 1;
+        justify-content: flex-start;
+        /* Align content to top */
+    }
+
+    /* Move Location Tag (Header) Above Main Image */
+    .location-tag {
+        order: -1;
+        /* Move to top */
+        margin-bottom: 10px;
+        margin-top: 0 !important;
+        /* Override potential mt-4 */
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+
+    /* Adjust Main Image Size */
+    .main-image-container {
+        height: 40vh;
+        /* Reduced height to fit screen */
+        max-height: 350px;
+        margin-bottom: 10px;
+        border-radius: 12px;
+    }
+
+    /* Filters Logic */
+    .mobile-filter-toggle {
+        display: inline-flex;
+        /* Show on mobile */
+        align-items: center;
+        gap: 8px;
+    }
+
+    .gallery-filters {
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        margin-bottom: 0;
+    }
+
+    .gallery-filters.show {
+        max-height: 200px;
+        /* Adjust as needed */
+        opacity: 1;
+        margin-bottom: 15px;
+        padding: 10px 0;
+    }
+
+    .filter-btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    /* Reel Adjustments */
+    .gallery-reel-container {
+        padding: 10px 0 20px;
+        /* Reduced padding */
+        background: rgba(16, 22, 34, 0.95);
+        /* Ensure visibility */
+        flex-shrink: 0;
+        /* Keep at bottom, don't shrink */
+    }
+
+    .gallery-reel {
+        padding: 10px 20px;
+        gap: 12px;
+    }
+
+    .reel-item {
+        width: 120px;
+        /* Smaller thumbnails */
+        border-radius: 8px;
+    }
+
+    .gallery-controls {
+        display: none;
+        /* Hide scroll buttons on mobile to save space */
+    }
+}
+
 
 .main-image-container {
     width: 100%;

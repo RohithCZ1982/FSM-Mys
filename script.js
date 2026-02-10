@@ -408,6 +408,25 @@ const galleryImages = [
     { src: 'images/gallery/activitiesImage3.jpg', category: 'activities', alt: 'Fun & Games' }
 ];
 
+// Mobile Filter Toggle
+const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+const galleryFilters = document.getElementById('gallery-filters');
+
+if (mobileFilterToggle && galleryFilters) {
+    mobileFilterToggle.addEventListener('click', () => {
+        galleryFilters.classList.toggle('show');
+        mobileFilterToggle.classList.toggle('active');
+
+        // Update icon
+        const icon = mobileFilterToggle.querySelector('i');
+        if (galleryFilters.classList.contains('show')) {
+            icon.className = 'fas fa-times';
+        } else {
+            icon.className = 'fas fa-filter';
+        }
+    });
+}
+
 let currentGalleryImages = []; // Filtered list
 let activeImageIndex = 0;
 
@@ -449,7 +468,17 @@ function updateMainView(index) {
     reelItems.forEach((item, i) => {
         if (i === index) {
             item.classList.add('active');
-            item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+            // Custom scroll logic to keep page position stable
+            const container = document.getElementById('gallery-reel');
+            if (container) {
+                const containerCenter = container.clientWidth / 2;
+                const itemCenter = item.offsetLeft + item.clientWidth / 2;
+                container.scrollTo({
+                    left: itemCenter - containerCenter,
+                    behavior: 'smooth'
+                });
+            }
         } else {
             item.classList.remove('active');
         }

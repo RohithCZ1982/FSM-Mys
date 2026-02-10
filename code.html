@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Infinite Flow - Immersive Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#135bec",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.5rem", "lg": "1rem", "xl": "1.5rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar hiding */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Infinite scroll simulation style */
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-infinite-scroll {
+            display: flex;
+            width: max-content;
+            animation: scroll 40s linear infinite;
+        }
+        .animate-infinite-scroll:hover {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white overflow-hidden">
+<!-- Immersive Background Layer -->
+<div class="fixed inset-0 z-0">
+<div class="absolute inset-0 bg-cover bg-center scale-110 blur-2xl opacity-60 transition-all duration-700" data-alt="Blurred landscape of mountain peaks at sunrise" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC8Ty5tbol_Lw_ANeK0k5qa69osQ0HbcmksfeH2ICp-2_nB_ZHWBQnEtUJ47znhwYV8MdTAB7FYK5_RSQ0AlqT10m4fvPbn4UTSOFeUf82-oNmOQl4l2EK1VucDU8bC7K4_5G61JISa2AKrZo6cKJHNtKtzYWtjXFcEwVOEUFrau9mYC5bJp-IAt9H1TtEBHvFs7F6jPYH8bOozGsnzlDSMJSjtuKl5_uT7GFeVILyJpBCoBpdqYt5QT3mt01STCOaEmfv-yN-5xcQ')">
+</div>
+<div class="absolute inset-0 bg-gradient-to-b from-background-dark/40 via-background-dark/20 to-background-dark/90"></div>
+</div>
+<!-- Main UI Container -->
+<div class="relative z-10 flex flex-col h-screen w-full">
+<!-- Header / Top Navigation -->
+<header class="flex items-center justify-between px-8 py-6 backdrop-blur-md bg-background-dark/10">
+<div class="flex items-center gap-6">
+<button class="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 transition-colors border border-white/10">
+<span class="material-symbols-outlined text-[20px]">menu</span>
+<span class="text-sm font-bold tracking-wider uppercase">Menu</span>
+</button>
+<div class="flex items-center gap-3">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold tracking-tight">Infinite Flow</h2>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<button class="flex size-11 items-center justify-center rounded-lg bg-white/5 hover:bg-primary transition-all border border-white/10 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">share</span>
+</button>
+<button class="flex size-11 items-center justify-center rounded-lg bg-white/5 hover:bg-primary transition-all border border-white/10 group">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">info</span>
+</button>
+<div class="ml-4 size-11 rounded-full border-2 border-primary/50 overflow-hidden">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a smiling man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaiybhs3ktFv0bWngO-Zx4gT_lfKD18dfTpL0NlGkTLJIFHZXe_dckAB4f_1yGvAwfOJ6kcYj1JJiq3qC83zKz4yfk-nrxi-P1n_L1689pgtxCCelZNT7araI3QEeRPtI6KksBxT7RIH9WFYcig_78urFgfsbdEWeQYBJH7bgsEtS2DyLO2DNhx-NVQw6yndx9pGbxstetMQ6uejDvULR9WG4G46C1HYKiNn3lJdGVX8TAukTbehDpKJ0gjR5ZP1L5uwIg4Oy5Bq4"/>
+</div>
+</div>
+</header>
+<!-- Focused Content Area -->
+<main class="flex-grow flex flex-col items-center justify-center px-4 text-center">
+<div class="max-w-4xl space-y-6">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 text-[10px] font-bold uppercase tracking-widest mb-4">
+<span class="material-symbols-outlined text-[14px] fill-1">location_on</span>
+<span data-location="Swiss Alps">Swiss Alps, Switzerland</span>
+</div>
+<h1 class="text-6xl md:text-8xl font-extrabold tracking-tighter text-white drop-shadow-2xl">
+                    Azure Horizons
+                </h1>
+<p class="text-lg md:text-xl text-white/70 max-w-2xl mx-auto font-light leading-relaxed">
+                    Captured during the fleeting moments of the golden hour, where the sky meets the earth in a symphony of cerulean and gold.
+                </p>
+<div class="flex items-center justify-center gap-8 pt-8 text-white/50 text-xs font-medium uppercase tracking-[0.2em]">
+<div class="flex flex-col gap-1">
+<span>ISO</span>
+<span class="text-white">100</span>
+</div>
+<div class="w-px h-8 bg-white/10"></div>
+<div class="flex flex-col gap-1">
+<span>Shutter</span>
+<span class="text-white">1/250s</span>
+</div>
+<div class="w-px h-8 bg-white/10"></div>
+<div class="flex flex-col gap-1">
+<span>Aperture</span>
+<span class="text-white">f/2.8</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Infinite Thumbnail Reel -->
+<footer class="pb-12 pt-6 relative group/footer">
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 to-transparent pointer-events-none"></div>
+<div class="relative overflow-hidden w-full py-8">
+<div class="animate-infinite-scroll gap-6 px-6 items-center">
+<!-- Set of Thumbnails (Duplicated for seamless loop) -->
+<!-- Active/Focused Thumbnail -->
+<div class="relative flex-shrink-0 w-64 aspect-video rounded-xl overflow-hidden cursor-pointer transition-all duration-500 scale-110 ring-4 ring-primary shadow-[0_0_30px_rgba(19,91,236,0.4)] z-20">
+<img class="w-full h-full object-cover" data-alt="Stunning mountain landscape with sharp peaks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBVy5o_lI6sj8xIERwKRHX5pFIITqkCQ85vLEuAdWFBJ1MjkQz-cWJQl9UHB3Exe_bD7Rlpo4Hwlwmd43F5NcmbOyEw33nPoQHcdL109qrMylpVXuEeLK_a3H0mG7rYcwMR4DovuaQXjD-4nec5kZzEaPYTphKEqq5lZqrwqxHR8ns_5DzLK1FdzNqyobDfn8XfP_Mk4hnqDk5cjmgJG2DxW6GPMxqNtiRvPVUpGwIvRpa2OfP5u94fVvAg5Xr9S5-QZJU3Ix0GUCg"/>
+</div>
+<!-- Regular Thumbnails -->
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Calm lake reflecting a sunset sky" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD7getkDxy_Z25wV-9wyV_4SR82MHWM7gkO3NiOVKXd5y3pMWf1XpFiRQs1btICHA_soXP1YUghMNYEHOnx3v9rHIxNIkaewnp-26JfSLyQrpjG22Hox_gz0LgWzeZ-wnEIswKuDYj39N84B-xZEWpG39Dp-S0ca1LLJxtIS5dwyFPCWG2sA4OQsIoCTpvX9DVK_Cmk1KOWw6ADUTshGsGdnjwdyhBnhMuMoW9aNVzRPQR1M0ao4sI7iQs2fh5moxhDKo8UrjgK7xw"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Deep green forest with sunlight filtering through" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBfvDkGOy6h8daJngnnem1vY6H_R6Zs3JNIbm-uR3H7rPM1cBIyaVLxXneZwL75ZXDXKtbBf0KNluEtGQknAB9ggJNRR-iH2nNO9q-ezFaLcr8fIiGfVe_5WjTVz4yOQ8zDKuoa1qtisb57unsyJJYD9QNlmZmBqDl0CKELZpIb19ghTO9Tw6SZTAxY9GLY3y__pIIoziUCqe-KxtULysZlmViE2O-q8GpPledq5EWGGbqp3pClZhlGcgoak3e3HqrITup4ao5q-Kk"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Vast canyon with winding river below" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBViH-lxTH5OMzH7E07MReBupIqWOlFhYxYUmYHKXsBnhaCKTZ45PDWGhBqKFMpiAFcA6e7taxV1iJ2iO61olKc7SsY1bl_YxTcun1jYfVFnF_ugEFOkUzdmMYnpZDkz-bR6YuWYsTovKXfrX_6-BebC0WGAHeSi8xQDIMGBzXdz4Au2hullhej_OFZNoYw7HjqQv8klyKFsuRd4IxFgQDMAcAphrvsQrC6nsrv1SxcCf3BX-HpJM2qR6-JHBhu8fdhtgkVzWhsYtU"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Mist covered meadow at dawn" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAneRfWMj0-dV1SRJ4rnvMuJm1a4OWErqEjHlRrgiV8q_sKH4y7iCm0bOatJp-F743kQ2CQNjBM4gZAXvyWTU7_b3b8mLJ08nziEEltrZV9a_EkwxN4M4VJ-E-OuAvAVmfan9KTpIE6EsmS5km0Utf_1KMSlJtkwjAv6MD0Wz44O0PhLyXgYCWweFl1Q1iJOwE5WfMGwWRAbRCDftbkUsgOJzTlXa7-5L_eX_HY9umokeq9-zH_xihPmsb33OYA8R_pO6uvLfEpcuI"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Wooden walkway through a lush park" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2mzRVLFyPVrHpeCTjsXUTzdG6Acwx2TpW8Ztcwj31M2iHi2x-L205kRxC5ENmpDTXeTLbVvaL09enS7yolsjlrzQhSDICCzWcnMIHjTIekcrvTKN8qnPZrDBF0oS0XsUb7_dB53FhcQ0QGArOWR1EJJvHdvZAygBFFlRWU55-BD_m97z6iz2ZkkS-qA6PcJECDY6tUlR9iwZL-f3wz-Vi-vbCtEPkoMm9sCBtILvmTcmwMnhh0Snw31bKFCIKC7ctzk0LWNsBO4U"/>
+</div>
+<!-- Duplicate Set for Animation Loop -->
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat mountain landscape peaks" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDb8JnaYKoMGDG9qgtXhQaDwvrRp3v7Nq4Z716gzFuTTF-T5EwQJCH0JFSTOr4ZVTag_ZPsMK8MbDkA7zJN-N8bd0Y3j6bfPCRsdC62V8YDyn6VrtI-ME6VixBmddV5ee1xb6hfRkZQ9z5Uh1gpRdtMFacIRT40d5meXTh1sdPcu9MHizwQ0lA-fm9fcR9O1YiJdEFLZIuWlF8mm07KD5nLZaF-u4KdFWcWDHauInYnZ20XjhxD4v9hEqO7ktNDH26cFNHZCCfdkQM"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat sunset lake view" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBuT1Bqa_JvVq3remG5uM6HID36s0w81inJMFeyJ7dky4SPz9-Fg2FQzuoufpAhB5d3JW0LkC6M9agE6683n6MzNVMjS3crgq95R-DeQlkKpdc23fPhqu736ONKkPM8NA_5OgKp2l1DVNMB48Xly8CcfE7JGcsnPZFtLslD3UDjjf9SqXQJs2z5FZNbfsDyO7JzVaf7fNyq5AZSi2mpIbQ8ueqFj5-m6UlBb4JzkY5i5b_LJ2imDdTUb1aOcaCK47RZLyx0mtkZlas"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat green forest sunlight" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAo9Hg_2XknSuwD2pjv_mT8GwcKrkmluOLP7iro5IOhvy_ZU_9UIS_1rddC4zGdOkl8xY-M-kBV2ELV11AxcCWpIJCsUmk_fEtds0ZHPgJzssB0H2ejmTwt3befKZhGZ-t3kBT_NOWMohvmnIbxM5Ob8QTdeOxecU3sS-ZItWtyXgby2IUl7ms_lJdxVivCjQDg7w7Rrrq-NFr1iN4KB77TswxU4GOQzhDE-cXXETWnQoyFdv74Alv8Dh_KQir7IWSu-8ANiULNSE0"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat canyon and river river" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCm-S63iVMvcm3kCanyG4dBETwrX41PyaKm05r0xflKXkI9HNzSEgcHiOx-djqdnndC8pU5XiyPsAB-saNuW7YM_aXmLtd-6NkPyp3xbhVphF6CrRbogAAksLss_NjlrJhy_NU9w4llFyh8D63MxxhWdzsinGy3QwEJgM-pMU9m2AlqGinG1FFsqzTd-CMgf202wqHI3bco3BFXqde4tPKt1RdbGx3dRHB7qVCjeCygXdllv-l87MWINwyNkutKGo0WeiYYyfxaCKc"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat misty meadow landscape" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCH6SOkjJrnBZHPdQZz7FUrRV0YFuUylkh6fPdS11VupjRC_QtoIR0zxll2X-gLluBjymuWQyQbGHXwZLnDjjEzrWQT7MOTHfxnVIpWkFUXzEPBBNl5LA8WJMDPBFb6oijESWK7gOBo7RXMZmeICplVFJOxkPvi30aOxCggU9Hz7P54RayjBkA4qm7fza7lD-Ol77W2xEUTZ3ShYbWXukcYFFX3QGIrp7USAJfmPdwPz6aaTmf_QDDG6kVx4j_coG35ym2WVDNC2QE"/>
+</div>
+<div class="flex-shrink-0 w-52 aspect-video rounded-lg overflow-hidden cursor-pointer opacity-60 hover:opacity-100 hover:scale-105 transition-all border border-white/10">
+<img class="w-full h-full object-cover" data-alt="Repeat wooden walkway path" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa5pE3yO1O67cI3qJ95tiJUrQxg4mENDxMLnLklHZnq8MiIs4uSxVLktwpjrY3VPOIL11eD1W6OsUdM0rs5JXSZ0q-Y87APZq4h9EXAaoGbfElO3FQVHdo9MNVr0qcgVQEglY2Dj3HN-B60kGKhIhC-A-UTrEdpVL7sIA6HVgf9DuH8OviLupX_m-23BkQiUM7whk0nVIz62_I_jzEYRd_AN0w258AkCz0jF2gOuy5T3PYbF8PCR8487rvLGukhTKz4TmfuD9ZWZA"/>
+</div>
+</div>
+</div>
+<!-- Controls Overlay for Reel -->
+<div class="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-4">
+<button class="size-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/5">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<div class="h-1 w-32 bg-white/10 rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-primary rounded-full shadow-[0_0_10px_#135bec]"></div>
+</div>
+<button class="size-8 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 transition-colors backdrop-blur-md border border-white/5">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</footer>
+<!-- Bottom Status Bar -->
+<div class="absolute bottom-0 w-full px-8 py-2 flex justify-between items-center bg-background-dark/30 backdrop-blur-sm border-t border-white/5 z-20">
+<div class="flex items-center gap-4 text-[10px] text-white/40 uppercase tracking-widest font-bold">
+<span>Gallery 01/24</span>
+<span class="size-1 rounded-full bg-white/20"></span>
+<span>Auto-play: On</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">fullscreen</span>
+</button>
+<button class="text-white/40 hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">volume_up</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

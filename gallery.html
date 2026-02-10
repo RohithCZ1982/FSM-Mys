@@ -22,7 +22,7 @@
         <div class="container">
             <div class="nav-wrapper">
                 <div class="logo">
-                    <img src="images/logo.png" alt="First Step Montessori Logo">
+                    <img src="images/logo_transparent.png" alt="First Step Montessori Logo">
                     <h1>First Step Montessori</h1>
                 </div>
                 <div class="nav-menu" id="navMenu">
@@ -43,19 +43,29 @@
         </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="page-header">
-        <div class="container">
-            <h1 class="page-title">Our Gallery</h1>
-            <p class="page-subtitle">Capturing Moments of Joy & Discovery</p>
+    <!-- Immersive Gallery Wrapper -->
+    <section class="immersive-gallery-wrapper">
+        <!-- Background Layer -->
+        <div class="immersive-bg">
+            <div id="immersive-bg-image" class="immersive-bg-image"></div>
+            <div class="immersive-overlay"></div>
         </div>
-    </header>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="gallery-page-section">
-        <div class="container">
+        <!-- Main Content -->
+        <main class="immersive-content">
+            <div class="main-image-container">
+                <img id="main-gallery-image" src="" alt="Main Gallery Image" class="main-gallery-image">
+            </div>
+            <div class="location-tag mt-4">
+                <i class="fas fa-camera"></i>
+                <span id="gallery-category-tag">Gallery</span>
+            </div>
+        </main>
 
-            <div class="gallery-filters">
+        <!-- Thumbnail Reel -->
+        <div class="gallery-reel-container">
+            <!-- Filter Controls (Optional, keeping simple for now or integrated) -->
+            <div class="gallery-filters" style="margin-bottom: 20px; z-index: 20; position: relative;">
                 <button class="filter-btn active" data-filter="all">All</button>
                 <button class="filter-btn" data-filter="classroom" data-category-prefix="classroom">Classroom</button>
                 <button class="filter-btn" data-filter="outdoor" data-category-prefix="outdoor">Outdoor</button>
@@ -64,26 +74,24 @@
                     data-category-prefix="activities">Activities</button>
             </div>
 
-            <div class="gallery-grid" id="gallery-grid">
-                <!-- Gallery items will be loaded dynamically by script.js -->
+            <div class="gallery-reel" id="gallery-reel">
+                <!-- Thumbnails will be injected here -->
+            </div>
+
+            <!-- Scroll Controls -->
+            <div class="gallery-controls">
+                <button id="scroll-left" class="control-btn"><i class="fas fa-chevron-left"></i></button>
+                <button id="scroll-right" class="control-btn"><i class="fas fa-chevron-right"></i></button>
             </div>
         </div>
     </section>
-
-    <!-- Lightbox Modal -->
-    <div id="lightbox" class="lightbox">
-        <span class="close-lightbox">&times;</span>
-        <img class="lightbox-content" id="lightbox-img">
-        <div id="caption"></div>
-    </div>
-
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo-container">
-                        <img src="images/logo.png" alt="First Step Montessori Logo">
+                        <img src="images/logo_transparent.png" alt="First Step Montessori Logo">
                         <h3>First Step Montessori</h3>
                     </div>
                     <p>Nurturing young minds through the Montessori method of education since 2009.</p>

@@ -379,68 +379,162 @@ if (lightbox) {
     });
 }
 
-// ===== Dynamic Gallery Loading & Filtering =====
-const filterButtons = document.querySelectorAll('.filter-btn');
+// ===== Immersive Gallery Functionality =====
+const immersiveBg = document.getElementById('immersive-bg-image');
+const mainTitle = document.getElementById('gallery-main-title');
+const mainDesc = document.getElementById('gallery-main-description');
+const mainImage = document.getElementById('main-gallery-image');
+let autoPlayInterval;
+const categoryTag = document.getElementById('gallery-category-tag');
+const reelContainer = document.getElementById('gallery-reel');
+const scrollLeftBtn = document.getElementById('scroll-left');
+const scrollRightBtn = document.getElementById('scroll-right');
 
-// List of all images in the gallery folder
-// In a real backend environment, this would be fetched from an API.
-// For this static site, we maintain the list manually based on the file system.
+// Reuse the existing galleryImages array defined above or define it here if replacing the previous block entirely
+// Since I textually replaced the block where galleryImages was defined, I must include it.
+
 const galleryImages = [
-    { src: 'images/gallery/classroomImage1.jpg', category: 'classroom', alt: 'Classroom Activity 1' },
-    { src: 'images/gallery/classroomImage2.jpg', category: 'classroom', alt: 'Classroom Activity 2' },
-    { src: 'images/gallery/classroomImage3.jpg', category: 'classroom', alt: 'Classroom Activity 3' },
-    { src: 'images/gallery/outdoorImage1.jpg', category: 'outdoor', alt: 'Outdoor Fun 1' },
-    { src: 'images/gallery/outdoorImage2.jpg', category: 'outdoor', alt: 'Outdoor Fun 2' },
-    { src: 'images/gallery/outdoorImage3.jpg', category: 'outdoor', alt: 'Outdoor Fun 3' },
-    { src: 'images/gallery/artsImage1.jpg', category: 'arts', alt: 'Creative Arts 1' },
-    { src: 'images/gallery/artsImage2.jpg', category: 'arts', alt: 'Creative Arts 2' },
-    { src: 'images/gallery/artsImage3.jpg', category: 'arts', alt: 'Creative Arts 3' },
-    { src: 'images/gallery/activitiesImage1.jpg', category: 'activities', alt: 'Group Activity 1' },
-    { src: 'images/gallery/activitiesImage2.jpg', category: 'activities', alt: 'Group Activity 2' },
-    { src: 'images/gallery/activitiesImage3.jpg', category: 'activities', alt: 'Group Activity 3' }
+    { src: 'images/gallery/classroomImage1.jpg', category: 'classroom', alt: 'Montessori Activity' },
+    { src: 'images/gallery/classroomImage2.jpg', category: 'classroom', alt: 'Focused Learning' },
+    { src: 'images/gallery/classroomImage3.jpg', category: 'classroom', alt: 'Classroom Environment' },
+    { src: 'images/gallery/outdoorImage1.jpg', category: 'outdoor', alt: 'Outdoor Exploration' },
+    { src: 'images/gallery/outdoorImage2.jpg', category: 'outdoor', alt: 'Playtime Fun' },
+    { src: 'images/gallery/outdoorImage3.jpg', category: 'outdoor', alt: 'Nature Discovery' },
+    { src: 'images/gallery/artsImage1.jpg', category: 'arts', alt: 'Creative Arts' },
+    { src: 'images/gallery/artsImage2.jpg', category: 'arts', alt: 'Artistic Expression' },
+    { src: 'images/gallery/artsImage3.jpg', category: 'arts', alt: 'Crafting Joy' },
+    { src: 'images/gallery/activitiesImage1.jpg', category: 'activities', alt: 'Group Activities' },
+    { src: 'images/gallery/activitiesImage2.jpg', category: 'activities', alt: 'Learning Together' },
+    { src: 'images/gallery/activitiesImage3.jpg', category: 'activities', alt: 'Fun & Games' }
 ];
 
-function renderGallery(filterIndex) {
-    const galleryGrid = document.getElementById('gallery-grid');
-    if (!galleryGrid) return;
+let currentGalleryImages = []; // Filtered list
+let activeImageIndex = 0;
 
-    galleryGrid.innerHTML = ''; // Clear current images
+function updateMainView(index) {
+    if (!currentGalleryImages.length) return;
+    // Wrap around index
+    if (index >= currentGalleryImages.length) index = 0;
+    if (index < 0) index = currentGalleryImages.length - 1;
 
-    const filterPrefix = filterIndex === 'all' ? null : filterIndex;
+    const img = currentGalleryImages[index];
 
-    const filteredImages = galleryImages.filter(img => {
-        if (filterIndex === 'all') return true;
-        // Check if the image source filename starts with the prefix (e.g. 'classroom')
-        const filename = img.src.split('/').pop();
-        return filename.startsWith(filterPrefix);
+    // Update Background with fade
+    if (immersiveBg) {
+        // Simple opacity transition
+        immersiveBg.style.opacity = '0';
+        setTimeout(() => {
+            immersiveBg.style.backgroundImage = `url('${img.src}')`;
+            immersiveBg.style.opacity = '0.6';
+        }, 300);
+    }
+
+    // Update Main Image
+    if (mainImage) {
+        mainImage.style.opacity = '0';
+        mainImage.style.transform = 'scale(0.95)';
+
+        setTimeout(() => {
+            mainImage.src = img.src;
+            mainImage.alt = img.alt;
+            mainImage.style.opacity = '1';
+            mainImage.style.transform = 'scale(1)';
+        }, 300);
+    }
+
+    if (categoryTag) categoryTag.textContent = img.category;
+
+    // Update Active Reel Item
+    const reelItems = document.querySelectorAll('.reel-item');
+    reelItems.forEach((item, i) => {
+        if (i === index) {
+            item.classList.add('active');
+            item.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        } else {
+            item.classList.remove('active');
+        }
     });
 
-    filteredImages.forEach(img => {
-        const item = document.createElement('div');
-        item.className = 'gallery-item';
-        item.setAttribute('data-category', img.category);
+    activeImageIndex = index;
+    resetAutoPlay();
+}
 
-        // Add animation for reappearing items
-        item.style.animation = 'fadeIn 0.5s ease forwards';
+function startAutoPlay() {
+    stopAutoPlay(); // clear any existing
+    autoPlayInterval = setInterval(() => {
+        updateMainView(activeImageIndex + 1);
+    }, 4000); // 4 seconds per slide
+}
 
-        item.innerHTML = `
-            <div class="gallery-image">
-                <img src="${img.src}" alt="${img.alt}" loading="lazy">
-                <div class="gallery-overlay">
-                    <i class="fas fa-search-plus"></i>
-                </div>
-            </div>
-        `;
-        galleryGrid.appendChild(item);
+function stopAutoPlay() {
+    if (autoPlayInterval) clearInterval(autoPlayInterval);
+}
+
+function resetAutoPlay() {
+    stopAutoPlay();
+    startAutoPlay();
+}
+
+function renderReel(filterIndex) {
+    if (!reelContainer) return;
+
+    // Fade out reel momentarily
+    reelContainer.style.opacity = '0';
+
+    setTimeout(() => {
+        reelContainer.innerHTML = '';
+        const filterPrefix = filterIndex === 'all' ? null : filterIndex;
+
+        currentGalleryImages = galleryImages.filter(img => {
+            if (filterIndex === 'all') return true;
+            const filename = img.src.split('/').pop();
+            return filename.startsWith(filterPrefix);
+        });
+
+        if (currentGalleryImages.length === 0) {
+            reelContainer.innerHTML = '<p style="color:white; width:100%; text-align:center;">No images found.</p>';
+            reelContainer.style.opacity = '1';
+            return;
+        }
+
+        currentGalleryImages.forEach((img, index) => {
+            const item = document.createElement('div');
+            item.className = 'reel-item';
+            item.innerHTML = `<img src="${img.src}" alt="${img.alt}" loading="lazy">`;
+
+            item.addEventListener('click', () => {
+                updateMainView(index);
+            });
+
+            reelContainer.appendChild(item);
+        });
+
+        // Fade in
+        reelContainer.style.opacity = '1';
+
+        // Set first image as active initially
+        updateMainView(0);
+        startAutoPlay();
+    }, 300);
+}
+
+// Controls
+if (scrollLeftBtn && reelContainer) {
+    scrollLeftBtn.addEventListener('click', () => {
+        reelContainer.scrollBy({ left: -300, behavior: 'smooth' });
+        resetAutoPlay();
     });
 }
 
-// Initial Load
-if (document.getElementById('gallery-grid')) {
-    renderGallery('all');
+if (scrollRightBtn && reelContainer) {
+    scrollRightBtn.addEventListener('click', () => {
+        reelContainer.scrollBy({ left: 300, behavior: 'smooth' });
+        resetAutoPlay();
+    });
 }
 
 // Filter Button Click Handlers
+const filterButtons = document.querySelectorAll('.filter-btn');
 if (filterButtons.length > 0) {
     filterButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -450,10 +544,18 @@ if (filterButtons.length > 0) {
             btn.classList.add('active');
 
             const filterValue = btn.getAttribute('data-filter');
-            // If data-category-prefix is present use it, otherwise fallback to data-filter
             const prefix = btn.getAttribute('data-category-prefix') || filterValue;
 
-            renderGallery(prefix);
+            renderReel(prefix);
         });
     });
+}
+
+// Initialize
+if (reelContainer) {
+    // Check url hash for initial filter? Or just load all.
+    renderReel('all');
+
+    // Auto-advance slideshow? Optional.
+    // setInterval(() => { updateMainView(activeImageIndex + 1); }, 5000);
 }

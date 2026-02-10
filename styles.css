@@ -1533,25 +1533,23 @@ body {
 }
 
 /* Mobile Filter Toggle */
-.mobile-filter-toggle {
+.mobile-filter-icon-btn {
     display: none;
-    /* Hidden by default on desktop */
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 8px 16px;
-    border-radius: 20px;
+    /* Hidden by default */
+    background: transparent;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin: 0 auto 15px;
-    /* Center and give space */
-    transition: all 0.3s ease;
+    margin-left: 10px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center;
 }
 
-.mobile-filter-toggle:hover,
-.mobile-filter-toggle.active {
-    background: var(--primary-color);
-    border-color: var(--primary-color);
+.mobile-filter-icon-btn:hover,
+.mobile-filter-icon-btn.active {
+    color: white;
 }
 
 .gallery-filters {
@@ -1594,7 +1592,9 @@ body {
         margin-top: 0 !important;
         /* Override potential mt-4 */
         font-size: 0.7rem;
-        padding: 4px 10px;
+        padding: 4px 12px;
+        display: inline-flex;
+        align-items: center;
     }
 
     /* Adjust Main Image Size */
@@ -1607,11 +1607,8 @@ body {
     }
 
     /* Filters Logic */
-    .mobile-filter-toggle {
+    .mobile-filter-icon-btn {
         display: inline-flex;
-        /* Show on mobile */
-        align-items: center;
-        gap: 8px;
     }
 
     .gallery-filters {
@@ -1619,14 +1616,26 @@ body {
         opacity: 0;
         overflow: hidden;
         margin-bottom: 0;
+        position: absolute;
+        /* Float over content */
+        bottom: 100px;
+        /* Adjust based on reel height */
+        left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        padding: 0;
+        pointer-events: none;
     }
 
     .gallery-filters.show {
         max-height: 200px;
         /* Adjust as needed */
         opacity: 1;
-        margin-bottom: 15px;
-        padding: 10px 0;
+        padding: 15px;
+        pointer-events: auto;
+        margin-bottom: 0;
     }
 
     .filter-btn {

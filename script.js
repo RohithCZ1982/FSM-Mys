@@ -409,16 +409,16 @@ const galleryImages = [
 ];
 
 // Mobile Filter Toggle
-const mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+const mobileFilterIconBtn = document.getElementById('mobile-filter-icon-btn');
 const galleryFilters = document.getElementById('gallery-filters');
 
-if (mobileFilterToggle && galleryFilters) {
-    mobileFilterToggle.addEventListener('click', () => {
+if (mobileFilterIconBtn && galleryFilters) {
+    mobileFilterIconBtn.addEventListener('click', () => {
         galleryFilters.classList.toggle('show');
-        mobileFilterToggle.classList.toggle('active');
+        mobileFilterIconBtn.classList.toggle('active');
 
         // Update icon
-        const icon = mobileFilterToggle.querySelector('i');
+        const icon = mobileFilterIconBtn.querySelector('i');
         if (galleryFilters.classList.contains('show')) {
             icon.className = 'fas fa-times';
         } else {

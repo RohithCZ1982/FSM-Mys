@@ -1539,10 +1539,15 @@ body {
     background: transparent;
     border: none;
     color: var(--secondary-color);
-    font-size: 1rem;
+    font-size: 1.2rem;
     cursor: pointer;
-    margin-left: 10px;
-    padding: 5px;
+    margin-left: 15px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
     align-items: center;
     justify-content: center;
 }
@@ -1576,8 +1581,8 @@ body {
     }
 
     .immersive-content {
-        margin-top: 80px;
-        /* Reduced top margin */
+        margin-top: 130px;
+        /* Increased top margin to clear navbar */
         padding: 0 10px;
         flex-grow: 1;
         justify-content: flex-start;

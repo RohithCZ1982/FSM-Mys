@@ -1394,6 +1394,12 @@ body {
         left: 0;
     }
 
+    .nav-link {
+        color: var(--text-dark) !important;
+        margin: 10px 0;
+        text-shadow: none !important;
+    }
+
     .hamburger {
         display: flex;
     }

@@ -1470,13 +1470,45 @@ body {
     }
 
     .testimonial-card {
-        min-width: 320px;
-        max-width: 320px;
-        padding: 30px;
+        min-width: 280px;
+        max-width: 340px;
+        padding: 25px 20px;
     }
 
+    .testimonial-text {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .author-image {
+        width: 55px;
+        height: 55px;
+    }
+
+    .author-name {
+        font-size: 1.1rem;
+    }
+
+    .author-role {
+        font-size: 0.85rem;
+    }
+
+    /* Disable animation on mobile for better readability */
     .testimonials-grid {
-        animation-duration: 30s;
+        animation: none;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 25px;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .testimonials-section::before {
+        display: none;
+    }
+
+    .testimonials-section {
+        padding: 80px 20px 60px;
     }
 }
 
